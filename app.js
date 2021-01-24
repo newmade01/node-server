@@ -4,13 +4,24 @@ const server = express();
 
 
 server.get("/", (req, res) => {
-    //res는 응답
-    res.send("<h1>hello from nodejs</h1>")
+    //__dirname: 자신의 파일 경로를 얻음
+    //__filename: 지금 파일의 이름
 
+    res.sendFile(__dirname + "/index.html");
+
+
+    // //res는 응답
+    // res.send("<h1>hello from nodejs</h1>");
+
+});
+
+//about이라는 요청이 왔을경우
+server.get("/about", (req, res) => {
+    res.sendFile(__dirname + "/about.html");
 })
 
 
-//GET 경로에 서버의 데이터를 요청한다
+//GET 경로에 서버의 데이터를 요청한다, 기본
 //POST 아이디, PW값을 넣을때 서버에 보내준다 값이 존재하는 USER인지 보내줌
 //DELET 존재하는 USER 탈퇴시 지울때
 //PUT 업데이트 DATA
