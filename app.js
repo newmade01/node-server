@@ -20,6 +20,12 @@ server.set("view engine", "hbs");
 server.use(express.static(__dirname + "/public"));
 
 
+server.get("/", (req, res) => {
+    res.render("home", {
+        message: "hello from nodejs"
+    });
+});
+
 // //MiddleWare를 만듬, 모두 요청을 여기를 지나가야한다.
 // server.use((req, res, next) => {
 //     req.user = {
