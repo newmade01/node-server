@@ -1,7 +1,19 @@
 const express = require("express");
+const hbs = require("express-handlebars");
 const server = express();
 //express 초기 선언
 
+
+//html파일을 node.js에서 자유롭게 바꿀 수 있게 도와줌 view엔진에 연결
+server.engine("hbs", hbs({
+    extname: "hbs",
+    defaultLayout: "layout.hbs",
+    //부분적인 html파일을 넣을때 , 사용
+    partialsDir: "partials",
+
+}));
+//view엔진은 hbs를 사용한다
+server.set("view engine", "hbs");
 
 
 //static은 text파일을 읽을때 원하는 값을 가져옴, css값을 읽기위해 꼭 써줘야함
@@ -22,34 +34,34 @@ server.use(express.static(__dirname + "/public"));
 
 
 
-server.get("/", (req, res) => {
+// server.get("/", (req, res) => {
 
-    // console.log(req.user);
-    //__dirname: 자신의 파일 경로를 얻음
-    //__filename: 지금 파일의 이름
+//     // console.log(req.user);
+//     //__dirname: 자신의 파일 경로를 얻음
+//     //__filename: 지금 파일의 이름
 
-    res.sendFile(__dirname + "/index.html");
-
-
-    // //res는 응답
-    // res.send("<h1>hello from nodejs</h1>");
-
-});
+//     res.sendFile(__dirname + "/index.html");
 
 
+//     // //res는 응답
+//     // res.send("<h1>hello from nodejs</h1>");
+
+// });
 
 
 
-//about이라는 요청이 왔을경우
-server.get("/about", (req, res) => {
-    res.sendFile(__dirname + "/about.html");
-})
 
 
-//모든 값을 지나왔지만 url을 찾을 수 없을경우 에러 페이지404를 띄운다.
-server.use((req, res) => {
-    res.sendFile(__dirname + "/404.html");
-});
+// //about이라는 요청이 왔을경우
+// server.get("/about", (req, res) => {
+//     res.sendFile(__dirname + "/about.html");
+// })
+
+
+// //모든 값을 지나왔지만 url을 찾을 수 없을경우 에러 페이지404를 띄운다.
+// server.use((req, res) => {
+//     res.sendFile(__dirname + "/404.html");
+// });
 
 
 
