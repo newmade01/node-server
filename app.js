@@ -4,8 +4,12 @@ const http = require("http");
 //server->clinet로 text값 보냄
 const server = http.createServer((req, res) => {
     // console.log(req.url); //url 설정
-    res.write("<h1>hello from nodejs")
-    res.end()
+    if (req.url === "/") {
+        res.write("<h1>hello from nodejs</h1>");
+    } else {
+        res.write('<h1> you have enter url ${req.url} </h1>');
+    }
+    res.end();
 });
 
 //localhost port로 연결
