@@ -3,7 +3,28 @@ const server = express();
 //express 초기 선언
 
 
+
+//static은 text파일을 읽을때 원하는 값을 가져옴, css값을 읽기위해 꼭 써줘야함
+server.use(express.static(__dirname + "/public"));
+
+
+// //MiddleWare를 만듬, 모두 요청을 여기를 지나가야한다.
+// server.use((req, res, next) => {
+//     req.user = {
+//         id: "1234",
+//     };
+//     //next(); 는 use 부분을 모두 처리하고 그 다음으로 넘어갈 수 있도록 처리.
+//     next();
+
+//     // console.log("hi from client");
+// });
+
+
+
+
 server.get("/", (req, res) => {
+
+    // console.log(req.user);
     //__dirname: 자신의 파일 경로를 얻음
     //__filename: 지금 파일의 이름
 
@@ -15,10 +36,21 @@ server.get("/", (req, res) => {
 
 });
 
+
+
+
+
 //about이라는 요청이 왔을경우
 server.get("/about", (req, res) => {
     res.sendFile(__dirname + "/about.html");
 })
+
+
+//모든 값을 지나왔지만 url을 찾을 수 없을경우 에러 페이지404를 띄운다.
+server.use((req, res) => {
+    res.sendFile(__dirname + "/404.html");
+});
+
 
 
 //GET 경로에 서버의 데이터를 요청한다, 기본
